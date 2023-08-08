@@ -4,7 +4,15 @@ const Form = () => {
     const [form, setForm] = useState('Toha');
     const [text, setText] = useState('Javascript is awesome');
     const [library, setLibrary] = useState('React');
-    const [isAwesome, setIsAwesome] = useState(true)
+    const [isAwesome, setIsAwesome] = useState(false);
+
+    const state = {
+        form,
+        text,
+        library,
+        isAwesome
+    }
+
 
     const handleChange = (e) => {
         if (e.target.type === 'text') {
@@ -20,19 +28,24 @@ const Form = () => {
             console.log(e.target.value)
         }
         else if (e.target.type === 'checkbox') {
-            setIsAwesome(e.target.value);
-            console.log(e.target.value)
+            setIsAwesome(e.target.checked);
+            console.log(e.target.checked)
         }
 
         else {
             console.log('nothing is here')
         }
+    };
+
+    const submitHandler = (e) => {
+        e.preventDefault();
+        console.log(state)
     }
 
 
     return (
         <div>
-            <form>
+            <form onSubmit={submitHandler}>
                 <input type="text" placeholder="Enter name" value={form} onChange={handleChange} />
                 <br />
                 <br />
@@ -47,7 +60,9 @@ const Form = () => {
                 </select>
                 <br />
                 <br />
-                <input type="checkBox" value={isAwesome} onChange={handleChange} />
+                <input type="checkBox" checked={isAwesome} onChange={handleChange} />
+                <br /><br />
+                <input type="submit" value="Submit" />
             </form>
         </div>
     );
